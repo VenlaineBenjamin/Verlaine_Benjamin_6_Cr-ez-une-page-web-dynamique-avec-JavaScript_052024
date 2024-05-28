@@ -306,11 +306,21 @@ form {
     align-items: center;
     max-width: 380px;
     margin: auto;
+    margin-top: 200px;
+    margin-bottom: 235px;
+}
+
+form a {
+    color: #1d6154;
+    font-weight: 700;
+    text-underline-offset: 0.2em;
 }
 
 label {
     margin: 1em 0;
     align-self: flex-start;
+    margin-top: 2.5em;
+    font-weight: 700;
 }
 
 input {
@@ -319,4 +329,33 @@ input {
     font-size: 1.2em;
     border: none;
     box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+#error {
+    color: red;
+    margin-top: 2em;
+    font-weight: 700;
+    transition: all 0.3s;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.title a {
+    cursor: pointer;
+    color: #1d6154;
+    font-weight: 700;
+    display: none;
+}
+
+.title a:hover {
+    text-decoration: underline;
+}
+
+.title a i {
+    margin-right: 0.5rem;
 }

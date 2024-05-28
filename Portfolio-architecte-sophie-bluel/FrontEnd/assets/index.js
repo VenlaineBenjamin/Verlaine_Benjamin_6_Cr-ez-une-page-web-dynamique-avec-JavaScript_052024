@@ -6,6 +6,25 @@ const btnFiltreAppartement = document.querySelector(
     ".button-filtre-appartement"
 );
 const btnFiltreHR = document.querySelector(".button-filtre-hotel");
+
+const isConected = window.localStorage.getItem("isLogin");
+console.log("état de connection : " + isConected);
+
+const linkLogin = document.querySelector(".btnLogin");
+console.log(linkLogin);
+
+const btnModif = document.querySelectorAll(".loginShowBtn");
+console.log(btnModif);
+
+if (isConected === "true") {
+    linkLogin.innerHTML = "logout";
+    btnModif.forEach((btn) => {
+        btn.style.display = "block";
+    });
+} else {
+    linkLogin.innerHTML = "login";
+}
+
 let works = [];
 let categories = [];
 
