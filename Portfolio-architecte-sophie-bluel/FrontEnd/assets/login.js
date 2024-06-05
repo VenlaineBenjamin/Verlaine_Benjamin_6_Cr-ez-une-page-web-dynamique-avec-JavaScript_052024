@@ -2,12 +2,10 @@ const inputEmail = document.querySelector("#email");
 const inputPassword = document.querySelector("#password");
 const inputButton = document.querySelector("#loginButton");
 const linkLogin = document.querySelector(".btnLogin");
-const validEmail = "benjaminverlaine@gmail.com";
-const validPassword = "1234";
+// const validEmail = "sophie.bluel@test.tld";
+// const validPassword = "S0phie";
+
 let msgError = document.querySelector("#error");
-let isLogin = false;
-window.localStorage.setItem("isLogin", isLogin);
-const isConected = window.localStorage.getItem("isLogin");
 console.log(inputEmail);
 console.log(inputPassword);
 console.log(inputButton);
@@ -16,14 +14,29 @@ console.log(linkLogin);
 
 inputButton.addEventListener("click", (event) => {
     event.preventDefault();
-    if (
-        validEmail === inputEmail.value &&
-        validPassword === inputPassword.value
-    ) {
-        window.localStorage.setItem("isLogin", true);
-        window.location.href = "../index.html";
-    } else {
-        msgError.innerHTML = "Erreur dans l’identifiant ou le mot de passe";
-    }
-    console.log(isConected);
+    const body = {
+        email: inputEmail.value,
+        password: inputPassword.value,
+    };
+    msgError.innerHTML = "";
+    fetch("http://localhost:5678/api/users/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+    }).then(async (response) => {
+        console.log(response);
+        if (response.status === 200) {
+            const { token } = await response.json();
+            // mettre le token dans le localStorage
+            window.localStorage.setItem("token", token);
+            console.log(response.ok);
+            // rediriger vers l'acceille
+            location.href = "../index.html";
+        } else {
+            msgError.innerHTML = "Erreur dans l’identifiant ou le mot de passe";
+        }
+        console.log(response);
+    });
 });

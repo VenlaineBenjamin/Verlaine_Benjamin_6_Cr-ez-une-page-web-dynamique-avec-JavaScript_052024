@@ -7,23 +7,38 @@ const btnFiltreAppartement = document.querySelector(
 );
 const btnFiltreHR = document.querySelector(".button-filtre-hotel");
 
-const isConected = window.localStorage.getItem("isLogin");
-console.log("état de connection : " + isConected);
-
 const linkLogin = document.querySelector(".btnLogin");
 console.log(linkLogin);
 
-const btnModif = document.querySelectorAll(".loginShowBtn");
+const btnModif = document.querySelector(".loginShowBtn");
 console.log(btnModif);
 
-if (isConected === "true") {
-    linkLogin.innerHTML = "logout";
-    btnModif.forEach((btn) => {
-        btn.style.display = "block";
-    });
+// récupération du token
+const token = localStorage.getItem("token");
+console.log(token);
+token ? console.log("connecté") : console.log("non connecté");
+const notConected = document.querySelector(".connection");
+console.log(notConected);
+const alredyConnect = document.querySelector(".deconnection");
+console.log(alredyConnect);
+
+if (token) {
+    notConected.style.display = "none";
+    alredyConnect.style.display = "block";
+    btnModif.style.display = "block";
 } else {
-    linkLogin.innerHTML = "login";
+    notConected.style.display = "block";
+    alredyConnect.style.display = "none";
+    btnModif.style.display = "none";
 }
+
+alredyConnect.addEventListener("click", () => {
+    localStorage.removeItem("token");
+    location.href = "/FrontEnd/index.html";
+    btnModif.style.display = "none";
+    notConected.style.display = "block";
+    alredyConnect.style.display = "none";
+});
 
 let works = [];
 let categories = [];
