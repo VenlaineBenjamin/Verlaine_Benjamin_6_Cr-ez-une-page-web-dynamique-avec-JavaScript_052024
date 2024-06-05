@@ -262,6 +262,7 @@ input[type="submit"] {
     width: 180px;
     text-align: center;
     border-radius: 60px;
+    cursor: pointer;
 }
 
 footer nav ul {
@@ -306,7 +307,6 @@ form {
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 380px;
     margin: auto;
     margin-top: 200px;
     margin-bottom: 235px;
@@ -331,7 +331,11 @@ input {
     font-size: 1.2em;
     border: none;
     box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
-    cursor: pointer;
+    cursor: text;
+}
+
+.form-login {
+    max-width: 23.6875rem;
 }
 
 #error {
@@ -379,13 +383,13 @@ input {
 .popup-container {
     background-color: #fefefe;
     margin: 15% auto;
-    padding: 20px;
-    width: 42%;
+    padding: 40px 15px;
+    width: 39.375rem;
     position: relative;
     border-radius: 0.625rem;
 }
 
-.popup-container .close-button {
+.close-button {
     position: absolute;
     top: 1.5rem;
     right: 2rem;
@@ -394,7 +398,7 @@ input {
     transition: all 0.3s;
 }
 
-.popup-container .close-button:hover {
+.close-button:hover {
     color: #b13c3c;
 }
 
@@ -406,7 +410,110 @@ input {
     width: 100%;
 }
 
+.popup-content-ajoute {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+    width: 100%;
+}
+
+.back-arrow {
+    position: absolute;
+    top: 1.5rem;
+    left: 2rem;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.ajout-image-window {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 2rem;
+    width: 80%;
+    background: #e8f1f6;
+    border-radius: 0.1875rem;
+}
+
+.ajout-image-window i {
+    margin-top: 1rem;
+    font-size: 4.75rem;
+    color: #cbd6dc;
+}
+
+.ajout-image-window p {
+    color: #306685;
+    margin: 1rem 0;
+    font-weight: 700;
+}
+
+.formAjoutImage {
+    width: 80%;
+    margin: 0;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.bouton-ajout-image {
+    font-family: "work sans";
+    color: #306685;
+    background-color: #cbd6dc;
+    padding: 0.625rem 1rem;
+    margin: 2em auto;
+    border-radius: 60px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.bouton-ajout-image:hover {
+    background-color: #1d6154;
+    color: white;
+    scale: 1.1;
+}
+
+#file-name {
+    margin: 1em 0;
+    color: #306685;
+    font-weight: 700;
+    font-family: "work sans";
+}
+
+#validerForm {
+    font-family: "Syne";
+    color: white;
+    background-color: #a7a7a7;
+    padding: 0.625rem 3rem;
+    margin: 2em auto;
+    border-radius: 60px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+#validerForm:hover {
+    background-color: #1d6154;
+    scale: 1.1;
+}
+
+#selectCategorie {
+    min-width: 100%;
+    height: 50px;
+    margin: 1rem 0;
+    background: #fffef8;
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+    border: none;
+}
+
 .popup-content h2 {
+    font-family: "Work Sans";
+    color: #333;
+}
+
+.popup-content-ajoute h2 {
     font-family: "Work Sans";
     color: #333;
 }

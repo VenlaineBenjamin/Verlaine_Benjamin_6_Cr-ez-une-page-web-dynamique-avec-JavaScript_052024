@@ -134,23 +134,39 @@
                 </div>
                 <div class="popup-content">
                     <h2>Galerie photo</h2>
-                    <div class="popup-images">
-                        <!-- <div class="edit-image">
-                            <img
-                                src="./assets/images/abajour-tahina.png"
-                                alt="abajour de luxe"
-                            />
-                            <div class="icon-trash">
-                                <i class="fa-solid fa-trash-can"></i>
-                            </div>
-                        </div> -->
-                    </div>
+                    <div class="popup-images"></div>
                     <div class="popup-divider"></div>
                     <input
                         id="add-image"
                         type="submit"
                         value="Ajouter une photo"
                     />
+                </div>
+                <div class="popup-content-ajoute">
+                    <div class="back-arrow">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </div>
+                    <h2>Ajout photo</h2>
+                    <div class="ajout-image-window">
+                        <i class="fa-regular fa-image"></i>
+                        <label class="bouton-ajout-image" for="fileInput">+ Ajouter photo 
+                        </label>
+                        <span id="file-name"></span>
+                        <input type="file" id="fileInput">
+                        <p>jpg, png : 4mo max</p>
+                    </div>
+                    <form class="formAjoutImage">
+                        <label for="btnAjoutImage">Titre</label>
+                        <input type="text" id="btnAjoutImage" />
+                        <label for="selectCategorie">Catégorie</label>
+                        <select name="selectCategorie" id="selectCategorie">
+                            <option value="object">Object</option>
+                            <option value="appartement">Appartement</option>
+                            <option value="hotel">Hotel & restaurant</option>
+                        </select>
+                    </form>
+                    <div class="popup-divider"></div>
+                    <input id="validerForm" type="submit" value="Valider"></input>
                 </div>
             </div>
         </div>

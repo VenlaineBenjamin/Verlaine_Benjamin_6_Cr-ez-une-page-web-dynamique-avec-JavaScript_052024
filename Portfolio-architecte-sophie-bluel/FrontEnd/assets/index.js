@@ -115,3 +115,12 @@ function fetchCategory() {
         });
 }
 fetchCategory();
+
+// affichage du non du fichier dans le input file
+const fileInput = document.querySelector("#fileInput");
+const fileName = document.querySelector("#file-name");
+console.log(fileName);
+
+fileInput.addEventListener("change", () => {
+    fileName.textContent = fileInput.files[0].name;
+});

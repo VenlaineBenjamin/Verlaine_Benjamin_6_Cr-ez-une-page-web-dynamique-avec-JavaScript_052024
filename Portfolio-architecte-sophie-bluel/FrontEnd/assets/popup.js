@@ -3,7 +3,6 @@ const myPopupContainer = document.querySelector(".popup-container");
 const popupCloseBtn = document.querySelector(".close-button");
 const popupImageContainer = document.querySelector(".popup-images");
 let eraseImageBtn = document.querySelectorAll(".icon-trash");
-console.log(eraseImageBtn);
 const btnAddImage = document.querySelector("#add-image");
 const btnEtitImage = document.querySelector(".btn-modif");
 const editeImage = document.querySelector(".edit-image");
@@ -99,33 +98,18 @@ async function displayImages() {
 
 displayImages();
 
-// function deleteImage() {
-//     let eraseImageBtn = document.querySelectorAll(".icon-trash");
-//     for (let i = 0; i < eraseImageBtn.length; i++) {
-//         eraseImageBtn[i].addEventListener("click", deleteProject);
-//     }
-// }
+const popupImage = document.querySelector(".popup-content");
+const formAddImage = document.querySelector(".popup-content-ajoute");
+formAddImage.style.display = "none";
+console.log(formAddImage);
+const backArrow = document.querySelector(".back-arrow");
 
-// async function deleteProject() {
-//     await fetch(`http://localhost:5678/api/works/${this.classList[0]}`, {
-//         method: "DELETE",
-//         headers: {
-//             Authorization: `Bearer ${window.localStorage.getItem("token")}`,
-//         },
-//     })
-//         .then((response) => {
-//             console.log(response);
-//             // token valide
-//             if (response.status === 200) {
-//                 // suppression de l'image
-//                 this.parentNode.remove();
-//             } else if (response.status === 401) {
-//                 // token invalide
-//                 alert("Vous n'êtes pas connecté");
-//                 location.href = "../login.html";
-//             }
-//         })
-//         .catch((error) => {
-//             console.error(error);
-//         });
-// }
+btnAddImage.addEventListener("click", () => {
+    popupImage.style.display = "none";
+    formAddImage.style.display = "flex";
+});
+
+backArrow.addEventListener("click", () => {
+    popupImage.style.display = "flex";
+    formAddImage.style.display = "none";
+});
