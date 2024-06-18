@@ -33,7 +33,7 @@ inputButton.addEventListener("click", (event) => {
             window.localStorage.setItem("token", token);
             console.log(response.ok);
             // rediriger vers l'acceille
-            location.href = "../index.html";
+            location.href = "/";
         } else {
             msgError.innerHTML = "Erreur dans l’identifiant ou le mot de passe";
         }

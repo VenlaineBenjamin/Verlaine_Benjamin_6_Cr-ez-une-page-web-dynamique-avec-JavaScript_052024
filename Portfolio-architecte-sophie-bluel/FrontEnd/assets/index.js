@@ -16,7 +16,9 @@ console.log(btnModif);
 // récupération du token
 const token = localStorage.getItem("token");
 console.log(token);
-token ? console.log("connecté") : console.log("non connecté");
+token
+    ? console.log("état de connection : connecté")
+    : console.log("état de connection : non connecté");
 const notConected = document.querySelector(".connection");
 console.log(notConected);
 const alredyConnect = document.querySelector(".deconnection");
@@ -34,7 +36,7 @@ if (token) {
 
 alredyConnect.addEventListener("click", () => {
     localStorage.removeItem("token");
-    location.href = "/FrontEnd/index.html";
+    location.href = "../";
     btnModif.style.display = "none";
     notConected.style.display = "block";
     alredyConnect.style.display = "none";
@@ -115,12 +117,3 @@ function fetchCategory() {
         });
 }
 fetchCategory();
-
-// affichage du non du fichier dans le input file
-const fileInput = document.querySelector("#fileInput");
-const fileName = document.querySelector("#file-name");
-console.log(fileName);
-
-fileInput.addEventListener("change", () => {
-    fileName.textContent = fileInput.files[0].name;
-});

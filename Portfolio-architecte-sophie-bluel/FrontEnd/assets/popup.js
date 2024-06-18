@@ -8,7 +8,7 @@ const btnEtitImage = document.querySelector(".btn-modif");
 const editeImage = document.querySelector(".edit-image");
 
 btnEtitImage.addEventListener("click", () => {
-    myPopup.style.display = "block";
+    myPopup.style.display = "flex";
 });
 
 popupCloseBtn.addEventListener("click", () => {
@@ -63,9 +63,9 @@ async function displayImages() {
         popupImageContainer.appendChild(EditeImage);
 
         // recuperation de l'id de l'image lors du click sur l'icone poubelle
-        iconTrash.addEventListener("click", () => {
-            console.log(work.id);
-        });
+        // iconTrash.addEventListener("click", () => {
+        //     console.log(work.id);
+        // });
 
         // suppression de l'image
         iconTrash.addEventListener("click", async () => {
@@ -113,3 +113,75 @@ backArrow.addEventListener("click", () => {
     popupImage.style.display = "flex";
     formAddImage.style.display = "none";
 });
+
+const fileInput = document.querySelector("#fileInput");
+const fileName = document.querySelector("#file-name");
+const btnValideForm = document.querySelector("#validerForm");
+const formTitleImage = document.querySelector(".imageTitle");
+const selectCategory = document.querySelector("#selectCategorie");
+
+// Affichage du nom du fichier dans l'input file
+fileInput.addEventListener("change", () => {
+    if (fileInput.files.length > 0) {
+        fileName.textContent = fileInput.files[0].name;
+    }
+});
+
+// Fonction pour ajouter l'image au DOM
+const addImageToDOM = (imageUrl) => {
+    const imgElement = document.createElement("img");
+    imgElement.src = imageUrl;
+    imgElement.alt = `${formTitleImage.value}`;
+    // Ajoutez l'élément img au conteneur souhaité dans votre DOM
+    document.querySelector("#imageContainer").appendChild(imgElement);
+};
+
+// Modification de la fonction sendImage pour inclure l'affichage de l'image
+const sendImage = async () => {
+    if (fileInput.files.length === 0) {
+        alert("Veuillez sélectionner un fichier avant de soumettre.");
+        return;
+    }
+
+    const formdata = new FormData();
+    formdata.append("image", fileInput.files[0]);
+    console.log(fileInput.files[0]);
+    formdata.append("title", formTitleImage.value);
+    console.log(formTitleImage.value);
+    formdata.append("category", selectCategory.value);
+    console.log(selectCategory.value);
+
+    try {
+        const response = await fetch("http://localhost:5678/api/works", {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: formdata,
+        }).then((response) => {
+            console.log(response);
+            if (response.status === 200) {
+                alert("Image ajoutée avec succès");
+                myPopup.style.display = "none";
+            } else if (response.status === 400) {
+                alert("Veuillez remplir tous les champs");
+            } else {
+                alert("Erreur lors de l'ajout de l'image");
+            }
+        });
+    } catch (error) {
+        alert(error.message);
+    }
+};
+
+const valideNewImage = () => {
+    btnValideForm.addEventListener("click", async (e) => {
+        e.preventDefault();
+        await sendImage();
+        await displayImages();
+    });
+};
+
+valideNewImage();
