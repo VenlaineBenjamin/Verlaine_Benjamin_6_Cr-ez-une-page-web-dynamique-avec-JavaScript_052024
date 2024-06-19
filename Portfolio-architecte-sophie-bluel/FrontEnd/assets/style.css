@@ -493,7 +493,7 @@ input[type="file"] {
     font-family: "work sans";
 }
 
-#validerForm {
+#btnValiderForm {
     font-family: "Syne";
     color: white;
     background-color: #a7a7a7;
@@ -505,7 +505,7 @@ input[type="file"] {
     transition: all 0.3s;
 }
 
-#validerForm:hover {
+#btnValiderForm:hover {
     background-color: #1d6154;
     scale: 1.1;
 }

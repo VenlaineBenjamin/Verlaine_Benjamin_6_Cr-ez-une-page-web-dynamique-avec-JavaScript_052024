@@ -34,13 +34,7 @@ function resetPopup() {
 
 // affichage des images + bouton de suppression dans la popup
 async function displayImages() {
-    const response = await fetch("http://localhost:5678/api/works", {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(),
-    });
+    const response = await fetch("http://localhost:5678/api/works");
     const works = await response.json();
     resetPopup();
 
@@ -61,11 +55,6 @@ async function displayImages() {
         EditeImage.appendChild(iconTrash);
 
         popupImageContainer.appendChild(EditeImage);
-
-        // recuperation de l'id de l'image lors du click sur l'icone poubelle
-        // iconTrash.addEventListener("click", () => {
-        //     console.log(work.id);
-        // });
 
         // suppression de l'image
         iconTrash.addEventListener("click", async () => {
@@ -127,15 +116,6 @@ fileInput.addEventListener("change", () => {
     }
 });
 
-// Fonction pour ajouter l'image au DOM
-const addImageToDOM = (imageUrl) => {
-    const imgElement = document.createElement("img");
-    imgElement.src = imageUrl;
-    imgElement.alt = `${formTitleImage.value}`;
-    // Ajoutez l'élément img au conteneur souhaité dans votre DOM
-    document.querySelector("#imageContainer").appendChild(imgElement);
-};
-
 // Modification de la fonction sendImage pour inclure l'affichage de l'image
 const sendImage = async () => {
     if (fileInput.files.length === 0) {
@@ -151,37 +131,26 @@ const sendImage = async () => {
     formdata.append("category", selectCategory.value);
     console.log(selectCategory.value);
 
-    try {
-        const response = await fetch("http://localhost:5678/api/works", {
-            method: "POST",
-            headers: {
-                Authorization: `Bearer ${window.localStorage.getItem("token")}`,
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
-            body: formdata,
-        }).then((response) => {
-            console.log(response);
-            if (response.status === 200) {
-                alert("Image ajoutée avec succès");
-                myPopup.style.display = "none";
-            } else if (response.status === 400) {
-                alert("Veuillez remplir tous les champs");
-            } else {
-                alert("Erreur lors de l'ajout de l'image");
-            }
-        });
-    } catch (error) {
-        alert(error.message);
-    }
-};
-
-const valideNewImage = () => {
-    btnValideForm.addEventListener("click", async (e) => {
-        e.preventDefault();
-        await sendImage();
-        await displayImages();
+    // try {
+    let response = await fetch("http://localhost:5678/api/works", {
+        method: "POST",
+        headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+            // Accept: "application/json",
+            // "Content-Type": "application/json",
+        },
+        body: formdata,
     });
+    let data = await response.json();
+    return data;
+    // } catch (error) {
+    // alert(error.message);
+    // }
 };
 
-valideNewImage();
+btnValideForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    let work = await sendImage();
+    console.log("work");
+    // await displayImages();
+});

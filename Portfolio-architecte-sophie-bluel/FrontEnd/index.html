@@ -18,7 +18,7 @@
             referrerpolicy="no-referrer"
         />
         <meta name="description" content="" />
-        <link rel="stylesheet" href="./FrontEnd/assets/style.css" />
+        <link rel="stylesheet" href="assets/style.css" />
     </head>
     <body>
         <header>
@@ -29,17 +29,17 @@
                     <li><a href="#contact">contact</a></li>
                     <li>
                         <a
-                            href="./FrontEnd/assets/login.html"
+                            href="login.html"
                             class="btnLogin connection"
-                            >connection</a
+                            >connexion</a
                         >
                         <a href="#" class="btnLogin deconnection"
-                            >déconnection</a
+                            >déconnexion</a
                         >
                     </li>
                     <li>
                         <img
-                            src="./FrontEnd/assets/icons/instagram.png"
+                            src="assets/icons/instagram.png"
                             alt="Instagram"
                         />
                     </li>
@@ -50,7 +50,7 @@
             <section id="introduction">
                 <figure>
                     <img
-                        src="./FrontEnd/assets/images/sophie-bluel.png"
+                        src="assets/images/sophie-bluel.png"
                         alt="photo de Sophie Bluelcd"
                     />
                 </figure>
@@ -153,22 +153,22 @@
                         <input type="file" id="fileInput" required>
                         <p>jpg, png : 4mo max</p>
                     </div>
-                    <form class="formAjoutImage">
+                    <form id="validerForm" class="formAjoutImage">
                         <label for="titleImage">Titre</label>
                         <input type="text" id="titleImage" class="imageTitle" />
                         <label for="selectCategorie">Catégorie</label>
                         <select name="selectCategorie" id="selectCategorie">
-                            <option value="object">Object</option>
-                            <option value="appartement">Appartement</option>
-                            <option value="hotel">Hotel & restaurant</option>
+                            <option value="1">Object</option>
+                            <option value="2">Appartement</option>
+                            <option value="3">Hotel & restaurant</option>
                         </select>
+                        <div class="popup-divider"></div>
+                        <input id="btnValiderForm" type="submit" value="Valider"></input>
                     </form>
-                    <div class="popup-divider"></div>
-                    <input id="validerForm" type="submit" value="Valider"></input>
                 </div>
             </div>
         </div>
-        <script type="module" src="./FrontEnd/assets/popup.js"></script>
-        <script type="module" src="./FrontEnd/assets/index.js"></script>
+        <script src="popup.js"></script>
+        <script src="index.js"></script>
     </body>
 </html>
