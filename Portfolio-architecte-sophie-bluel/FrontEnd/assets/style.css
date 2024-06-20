@@ -459,6 +459,12 @@ input {
     font-weight: 700;
 }
 
+.imagePreview {
+    width: 8rem;
+    display: block;
+    margin: 0 auto;
+}
+
 .formAjoutImage {
     width: 80%;
     margin: 0;

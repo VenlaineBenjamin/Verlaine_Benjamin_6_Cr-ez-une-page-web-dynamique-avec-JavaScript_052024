@@ -146,12 +146,13 @@
                     </div>
                     <h2>Ajout photo</h2>
                     <div class="ajout-image-window">
-                        <i class="fa-regular fa-image"></i>
+                        <i id="iconAddImage" class="fa-regular fa-image"></i>
+                        <img class="imagePreview" src="" alt="">
                         <label class="bouton-ajout-image" for="fileInput">+ Ajouter photo 
                         </label>
                         <span id="file-name"></span>
                         <input type="file" id="fileInput" required>
-                        <p>jpg, png : 4mo max</p>
+                        <p class="textInfoImage">jpg, png : 4mo max</p>
                     </div>
                     <form id="validerForm" class="formAjoutImage">
                         <label for="titleImage">Titre</label>

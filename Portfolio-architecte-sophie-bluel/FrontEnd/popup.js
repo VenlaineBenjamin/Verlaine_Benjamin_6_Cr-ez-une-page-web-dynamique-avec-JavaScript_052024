@@ -69,7 +69,7 @@ async function displayImages() {
                 .then((response) => {
                     console.log(response);
                     // token valide
-                    if (response.status === 200) {
+                    if (response.status < 299) {
                         // suppression de l'image
                         EditeImage.remove();
                     } else if (response.status === 401) {
@@ -78,6 +78,9 @@ async function displayImages() {
                         location.href = "../login.html";
                     }
                 })
+                // .then((html) => {
+                //     document.querySelector(".gallery").innerHTML = html;
+                // })
                 .catch((error) => {
                     console.error(error);
                 });
@@ -108,15 +111,33 @@ const fileName = document.querySelector("#file-name");
 const btnValideForm = document.querySelector("#validerForm");
 const formTitleImage = document.querySelector(".imageTitle");
 const selectCategory = document.querySelector("#selectCategorie");
+const imagePreview = document.querySelector(".imagePreview");
+console.log(imagePreview);
+const iconAddImage = document.querySelector("#iconAddImage");
+console.log(iconAddImage);
+const btnAjouteImage = document.querySelector(".bouton-ajout-image");
+const textInfoImage = document.querySelector(".textInfoImage");
+const windowAddImage = document.querySelector(".ajout-image-window");
 
-// Affichage du nom du fichier dans l'input file
+// affichage de l'image dans la popup si l'utilisateur a sélectionné une image
 fileInput.addEventListener("change", () => {
     if (fileInput.files.length > 0) {
-        fileName.textContent = fileInput.files[0].name;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            imagePreview.src = e.target.result;
+        };
+        reader.readAsDataURL(fileInput.files[0]);
+        iconAddImage.style.display = "none";
+        btnAjouteImage.style.display = "none";
+        textInfoImage.style.display = "none";
+        windowAddImage.style.display = "block";
+    } else {
+        // change la taille de l'image a 0
+        imagePreview.style.width = "0";
+        windowAddImage.style.display = "flex";
     }
 });
 
-// Modification de la fonction sendImage pour inclure l'affichage de l'image
 const sendImage = async () => {
     if (fileInput.files.length === 0) {
         alert("Veuillez sélectionner un fichier avant de soumettre.");
@@ -131,11 +152,10 @@ const sendImage = async () => {
     formdata.append("category", selectCategory.value);
     console.log(selectCategory.value);
 
-    // try {
     let response = await fetch("http://localhost:5678/api/works", {
         method: "POST",
         headers: {
-            authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
             // Accept: "application/json",
             // "Content-Type": "application/json",
         },
@@ -143,14 +163,11 @@ const sendImage = async () => {
     });
     let data = await response.json();
     return data;
-    // } catch (error) {
-    // alert(error.message);
-    // }
 };
 
 btnValideForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     let work = await sendImage();
-    console.log("work");
+    console.log(work);
     // await displayImages();
 });

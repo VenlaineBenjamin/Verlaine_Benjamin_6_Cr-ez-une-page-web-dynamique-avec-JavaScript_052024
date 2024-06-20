@@ -28,10 +28,16 @@ if (token) {
     notConected.style.display = "none";
     alredyConnect.style.display = "block";
     btnModif.style.display = "block";
+    mesBtnFilter.forEach((btn) => {
+        btn.style.display = "none";
+    });
 } else {
     notConected.style.display = "block";
     alredyConnect.style.display = "none";
     btnModif.style.display = "none";
+    mesBtnFilter.forEach((btn) => {
+        btn.style.display = "nblock";
+    });
 }
 
 alredyConnect.addEventListener("click", () => {
