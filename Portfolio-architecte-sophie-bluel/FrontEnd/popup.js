@@ -6,6 +6,8 @@ let eraseImageBtn = document.querySelectorAll(".icon-trash");
 const btnAddImage = document.querySelector("#add-image");
 const btnEtitImage = document.querySelector(".btn-modif");
 const editeImage = document.querySelector(".edit-image");
+const imageGallery = document.querySelector("#imageContainer");
+import { fetchWorks } from "./index.js";
 
 btnEtitImage.addEventListener("click", () => {
     myPopup.style.display = "flex";
@@ -72,6 +74,7 @@ async function displayImages() {
                     if (response.status < 299) {
                         // suppression de l'image
                         EditeImage.remove();
+                        fetchWorks();
                     } else if (response.status === 401) {
                         // token invalide
                         alert("Vous n'êtes pas connecté");
@@ -107,8 +110,8 @@ backArrow.addEventListener("click", () => {
 });
 
 const fileInput = document.querySelector("#fileInput");
-const fileName = document.querySelector("#file-name");
 const btnValideForm = document.querySelector("#validerForm");
+console.log(btnValideForm);
 const formTitleImage = document.querySelector(".imageTitle");
 const selectCategory = document.querySelector("#selectCategorie");
 const imagePreview = document.querySelector(".imagePreview");
@@ -119,12 +122,30 @@ const btnAjouteImage = document.querySelector(".bouton-ajout-image");
 const textInfoImage = document.querySelector(".textInfoImage");
 const windowAddImage = document.querySelector(".ajout-image-window");
 
+function defaultForm() {
+    formTitleImage.value = "";
+    selectCategory.value = "1";
+    fileInput.value = "";
+    imagePreview.src = "";
+    imagePreview.alt = "";
+    iconAddImage.style.display = "flex";
+    btnAjouteImage.style.display = "flex";
+    textInfoImage.style.display = "flex";
+    windowAddImage.style.display = "flex";
+}
+
+btnValideForm.addEventListener("click", () => {
+    // raffraichir la galerie pour afficher l'image ajoutée
+    displayImages();
+});
+
 // affichage de l'image dans la popup si l'utilisateur a sélectionné une image
 fileInput.addEventListener("change", () => {
     if (fileInput.files.length > 0) {
         const reader = new FileReader();
         reader.onload = (e) => {
             imagePreview.src = e.target.result;
+            imagePreview.alt = fileInput.files[0].name;
         };
         reader.readAsDataURL(fileInput.files[0]);
         iconAddImage.style.display = "none";
@@ -132,7 +153,6 @@ fileInput.addEventListener("change", () => {
         textInfoImage.style.display = "none";
         windowAddImage.style.display = "block";
     } else {
-        // change la taille de l'image a 0
         imagePreview.style.width = "0";
         windowAddImage.style.display = "flex";
     }
@@ -169,5 +189,9 @@ btnValideForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     let work = await sendImage();
     console.log(work);
-    // await displayImages();
+    popupImage.style.display = "flex";
+    formAddImage.style.display = "none";
+    defaultForm();
+    displayImages();
+    fetchWorks();
 });

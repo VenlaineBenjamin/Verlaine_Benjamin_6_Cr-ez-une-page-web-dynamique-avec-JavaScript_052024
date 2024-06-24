@@ -98,13 +98,12 @@ function displayWorks(worksToDisplay) {
         createFigure.innerHTML = `
         <img src="${work.imageUrl}" alt="${work.title}">
         <figcaption>${work.title}</figcaption>
-        <p>${work.category.name}</p>
     `;
         gallery.appendChild(createFigure);
     });
 }
 
-function fetchWorks() {
+export function fetchWorks() {
     fetch("http://localhost:5678/api/works")
         .then((response) => response.json())
         .then((data) => {
