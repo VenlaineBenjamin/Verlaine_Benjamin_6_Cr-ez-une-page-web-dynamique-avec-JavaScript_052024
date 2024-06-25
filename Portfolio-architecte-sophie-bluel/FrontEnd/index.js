@@ -95,6 +95,7 @@ function displayWorks(worksToDisplay) {
     gallery.innerHTML = "";
     worksToDisplay.forEach((work) => {
         const createFigure = document.createElement("figure");
+        createFigure.classList.add("gallery-image");
         createFigure.innerHTML = `
         <img src="${work.imageUrl}" alt="${work.title}">
         <figcaption>${work.title}</figcaption>

@@ -114,13 +114,16 @@ const btnValideForm = document.querySelector("#validerForm");
 console.log(btnValideForm);
 const formTitleImage = document.querySelector(".imageTitle");
 const selectCategory = document.querySelector("#selectCategorie");
-const imagePreview = document.querySelector(".imagePreview");
-console.log(imagePreview);
 const iconAddImage = document.querySelector("#iconAddImage");
 console.log(iconAddImage);
 const btnAjouteImage = document.querySelector(".bouton-ajout-image");
 const textInfoImage = document.querySelector(".textInfoImage");
 const windowAddImage = document.querySelector(".ajout-image-window");
+const imagePreviewContainer = document.querySelector(
+    ".image-preview-container"
+);
+let imagePreview;
+console.log(imagePreviewContainer);
 
 function defaultForm() {
     formTitleImage.value = "";
@@ -137,6 +140,7 @@ function defaultForm() {
 btnValideForm.addEventListener("click", () => {
     // raffraichir la galerie pour afficher l'image ajoutée
     displayImages();
+    fetchWorks();
 });
 
 // affichage de l'image dans la popup si l'utilisateur a sélectionné une image
@@ -144,8 +148,10 @@ fileInput.addEventListener("change", () => {
     if (fileInput.files.length > 0) {
         const reader = new FileReader();
         reader.onload = (e) => {
+            imagePreview = document.createElement("img");
             imagePreview.src = e.target.result;
-            imagePreview.alt = fileInput.files[0].name;
+            imagePreview.alt = "image preview";
+            imagePreviewContainer.appendChild(imagePreview);
         };
         reader.readAsDataURL(fileInput.files[0]);
         iconAddImage.style.display = "none";
@@ -181,6 +187,7 @@ const sendImage = async () => {
         },
         body: formdata,
     });
+    fetchWorks();
     let data = await response.json();
     return data;
 };
