@@ -420,8 +420,7 @@ input {
     width: 100%;
     height: 100vh;
     overflow: hidden;
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 .popup-container {
@@ -607,6 +606,13 @@ input[type="file"] {
 
 .popup-divider {
     width: 26.25rem;
+    height: 1px;
+    background-color: #b3b3b3;
+    margin-top: 2rem;
+}
+
+.popup-divider-form {
+    width: 100%;
     height: 1px;
     background-color: #b3b3b3;
     margin-top: 2rem;

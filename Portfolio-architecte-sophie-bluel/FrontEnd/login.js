@@ -2,8 +2,6 @@ const inputEmail = document.querySelector("#email");
 const inputPassword = document.querySelector("#password");
 const inputButton = document.querySelector("#loginButton");
 const linkLogin = document.querySelector(".btnLogin");
-// const validEmail = "sophie.bluel@test.tld";
-// const validPassword = "S0phie";
 
 let msgError = document.querySelector("#error");
 console.log(inputEmail);

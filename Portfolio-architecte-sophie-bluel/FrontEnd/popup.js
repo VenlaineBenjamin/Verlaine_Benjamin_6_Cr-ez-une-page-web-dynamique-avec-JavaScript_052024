@@ -2,31 +2,47 @@ const myPopup = document.querySelector(".popup");
 const myPopupContainer = document.querySelector(".popup-container");
 const popupCloseBtn = document.querySelector(".close-button");
 const popupImageContainer = document.querySelector(".popup-images");
-let eraseImageBtn = document.querySelectorAll(".icon-trash");
+// let eraseImageBtn = document.querySelectorAll(".icon-trash");
 const btnAddImage = document.querySelector("#add-image");
-const btnEtitImage = document.querySelector(".btn-modif");
-const editeImage = document.querySelector(".edit-image");
-const imageGallery = document.querySelector("#imageContainer");
+const btnEditImage = document.querySelector(".btn-modif");
+// const imageGallery = document.querySelector("#imageContainer");
 import { fetchWorks } from "./index.js";
+const formAddImage = document.querySelector(".popup-content-ajoute");
+let imagePreview;
 
-btnEtitImage.addEventListener("click", () => {
+function defaultForm() {
+    imagePreviewContainer.innerHTML = "";
+    formTitleImage.value = "";
+    selectCategory.value = "1";
+    fileInput.value = "";
+    // imagePreview.src = "";
+    // imagePreview.alt = "";
+    iconAddImage.style.display = "flex";
+    btnAjouteImage.style.display = "flex";
+    textInfoImage.style.display = "flex";
+    windowAddImage.style.display = "flex";
+}
+
+btnEditImage.addEventListener("click", () => {
     myPopup.style.display = "flex";
 });
 
 popupCloseBtn.addEventListener("click", () => {
     myPopup.style.display = "none";
+    defaultForm();
 });
 
 window.addEventListener("click", (e) => {
     if (e.target === myPopup) {
         myPopup.style.display = "none";
+        defaultForm();
     }
 });
 
-// ferme la popup en appuyant sur la touche echap
 window.addEventListener("keydown", (e) => {
     if (e.key === "Escape") {
         myPopup.style.display = "none";
+        defaultForm();
     }
 });
 
@@ -41,22 +57,22 @@ async function displayImages() {
     resetPopup();
 
     works.forEach((work) => {
-        const EditeImage = document.createElement("div");
-        EditeImage.classList.add("edit-image");
+        const editeImage = document.createElement("div");
+        editeImage.classList.add("edit-image");
 
         const img = document.createElement("img");
         img.src = work.imageUrl;
         img.alt = work.title;
-        EditeImage.appendChild(img);
+        editeImage.appendChild(img);
 
         const iconTrash = document.createElement("div");
         iconTrash.classList.add("icon-trash");
         const trashIcon = document.createElement("i");
         trashIcon.classList.add("fa-solid", "fa-trash-can");
         iconTrash.appendChild(trashIcon);
-        EditeImage.appendChild(iconTrash);
+        editeImage.appendChild(iconTrash);
 
-        popupImageContainer.appendChild(EditeImage);
+        popupImageContainer.appendChild(editeImage);
 
         // suppression de l'image
         iconTrash.addEventListener("click", async () => {
@@ -73,7 +89,7 @@ async function displayImages() {
                     // token valide
                     if (response.status < 299) {
                         // suppression de l'image
-                        EditeImage.remove();
+                        editeImage.remove();
                         fetchWorks();
                     } else if (response.status === 401) {
                         // token invalide
@@ -94,7 +110,6 @@ async function displayImages() {
 displayImages();
 
 const popupImage = document.querySelector(".popup-content");
-const formAddImage = document.querySelector(".popup-content-ajoute");
 formAddImage.style.display = "none";
 console.log(formAddImage);
 const backArrow = document.querySelector(".back-arrow");
@@ -107,6 +122,7 @@ btnAddImage.addEventListener("click", () => {
 backArrow.addEventListener("click", () => {
     popupImage.style.display = "flex";
     formAddImage.style.display = "none";
+    // defaultForm();
 });
 
 const fileInput = document.querySelector("#fileInput");
@@ -122,20 +138,8 @@ const windowAddImage = document.querySelector(".ajout-image-window");
 const imagePreviewContainer = document.querySelector(
     ".image-preview-container"
 );
-let imagePreview;
-console.log(imagePreviewContainer);
 
-function defaultForm() {
-    formTitleImage.value = "";
-    selectCategory.value = "1";
-    fileInput.value = "";
-    imagePreview.src = "";
-    imagePreview.alt = "";
-    iconAddImage.style.display = "flex";
-    btnAjouteImage.style.display = "flex";
-    textInfoImage.style.display = "flex";
-    windowAddImage.style.display = "flex";
-}
+console.log(imagePreviewContainer);
 
 btnValideForm.addEventListener("click", () => {
     // raffraichir la galerie pour afficher l'image ajoutée
@@ -182,8 +186,6 @@ const sendImage = async () => {
         method: "POST",
         headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
-            // Accept: "application/json",
-            // "Content-Type": "application/json",
         },
         body: formdata,
     });
